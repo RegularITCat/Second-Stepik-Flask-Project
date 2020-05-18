@@ -1,3 +1,6 @@
+import json
+
+
 goals = {"travel": "Для путешествий", "study": "Для учебы", "work": "Для работы", "relocate": "Для переезда"}
 
 teachers = [
@@ -320,3 +323,7 @@ teachers = [
         }
     },
 ]
+
+data = {"goals" : goals, "teachers" : teachers}
+with open('data.json', 'w') as f:
+    f.write(json.dumps(data))
