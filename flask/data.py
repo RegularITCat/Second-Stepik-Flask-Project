@@ -1,7 +1,12 @@
 import json
 
 
-goals = {"travel": "Для путешествий", "study": "Для учебы", "work": "Для работы", "relocate": "Для переезда"}
+# помимо того, что здесь хранятся данные, это также и скрипт для создания data.json
+
+goals = {"travel": "Для путешествий", "study": "Для учебы", "work": "Для работы", "relocate": "Для переезда","program":"Для программирования"}
+
+goals_emoji = {"travel": "⛱", "study": "🏫", "work": "🏢", "relocate": "🚜","program":"💻"}
+
 
 teachers = [
 
@@ -222,7 +227,7 @@ teachers = [
         "picture": "https://i.pravatar.cc/300?img=35",
         "rating": 5,
         "price": 1700,
-        "goals": ["relocate", "work"],
+        "goals": ["relocate", "work", "program"],
         "free": {
 
             "mon": {"8:00": False, "10:00": False, "12:00": False, "14:00": False, "16:00": True, "18:00": True,
@@ -249,7 +254,7 @@ teachers = [
         "picture": "https://i.pravatar.cc/300?img=36",
         "rating": 4.1,
         "price": 1200,
-        "goals": ["work"],
+        "goals": ["work","program"],
         "free": {
 
             "mon": {"8:00": False, "10:00": False, "12:00": False, "14:00": False, "16:00": True, "18:00": True,
@@ -276,7 +281,7 @@ teachers = [
         "picture": "https://i.pravatar.cc/300?img=37",
         "rating": 4.7,
         "price": 1100,
-        "goals": ["travel", "study", "work"],
+        "goals": ["travel", "study", "work","program"],
         "free": {
 
             "mon": {"8:00": False, "10:00": False, "12:00": False, "14:00": False, "16:00": True, "18:00": True,
@@ -303,7 +308,7 @@ teachers = [
         "picture": "https://i.pravatar.cc/300?img=38",
         "rating": 4.2,
         "price": 900,
-        "goals": ["travel", "work"],
+        "goals": ["travel", "work","program"],
         "free": {
 
             "mon": {"8:00": False, "10:00": False, "12:00": False, "14:00": False, "16:00": True, "18:00": True,
@@ -324,6 +329,6 @@ teachers = [
     },
 ]
 
-data = {"goals" : goals, "teachers" : teachers, "days" : {"mon" : "понедельник", "tue":"вторник", "wed":"среда", "thu":"четверг", "fri":"пятница", "sat":"суббота", "sun":"воскресенье"}}
+data = {"goals" : goals, "teachers" : teachers, "days" : {"mon" : "понедельник", "tue":"вторник", "wed":"среда", "thu":"четверг", "fri":"пятница", "sat":"суббота", "sun":"воскресенье"}, "time" : {"time1":"1-2 часа","time2":"3-5 часов","time3":"5-7 часов","time4":"7-10 часов"}, "goals_emoji" : goals_emoji}
 with open('data.json', 'w') as f:
     f.write(json.dumps(data))

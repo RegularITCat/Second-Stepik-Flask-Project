@@ -1,66 +1,41 @@
 {% extends 'base.html' %}
 {% block container %}
-  <div class="card my-4 mx-auto">
-    <div class="card-body m-2 m-md-4">
-      <article class="row">
-        <div class="col-5"><img src="{{ teacher.picture }}" class="img-fluid" alt=""></div>
-        <div class="col-7">
-          <section class="teacher=info">
-            <h1 class="h2">{{ teacher.name }}</h1>
-            <p>
-              {% for e in teacher.goals%}
-              <span class="badge badge-secondary mr-2">{{ goals['e']}}</span>
-              {% endfor %}
-            Рейтинг: {{ teacher.rating }} Ставка: {{ teacher.price }} / час</p>
-            <p>{{ teacher.about }}</p>
-          </section>
-          <section class="available">
-            <h4 class="mb-4 mt-5">Записаться на пробный урок</h4>
-            <h6 class="mt-4">Понедельник</h6>
-            {% for k, e in (teacher.free["mon"]).items() %}
-            {% if e %}
-            <a href="{{url_for('booking', teacher_id=teacher.id, day='mon', time=k.split(':')[0]|int)}}" class="btn btn-outline-success  mr-2">{{ k }} свободно</a>
-            {% endif %}
-            {% endfor %}
-            <h6 class="mt-4">Вторник</h6>
-            {% for k, e in (teacher.free["tue"]).items() %}
-            {% if e %}
-            <a href="{{url_for('booking', teacher_id=teacher.id, day='tue', time=k.split(':')[0]|int)}}" class="btn btn-outline-success  mr-2">{{ k }} свободно</a>
-            {% endif %}
-            {% endfor %}
-            <h6 class="mt-4">Среда</h6>
-            {% for k, e in (teacher.free["wed"]).items() %}
-            {% if e %}
-            <a href="{{url_for('booking', teacher_id=teacher.id, day='wed', time=k.split(':')[0]|int)}}" class="btn btn-outline-success  mr-2">{{ k }} свободно</a>
-            {% endif %}
-            {% endfor %}
-            <h6 class="mt-4">Четверг</h6>
-            {% for k, e in (teacher.free["thu"]).items() %}
-            {% if e %}
-            <a href="{{url_for('booking', teacher_id=teacher.id, day='thu', time=k.split(':')[0]|int)}}" class="btn btn-outline-success  mr-2">{{ k }} свободно</a>
-            {% endif %}
-            {% endfor %}
-            <h6 class="mt-4">Пятница</h6>
-            {% for k, e in (teacher.free["fri"]).items() %}
-            {% if e %}
-            <a href="{{url_for('booking', teacher_id=teacher.id, day='fri', time=k.split(':')[0]|int)}}" class="btn btn-outline-success  mr-2">{{ k }} свободно</a>
-            {% endif %}
-            {% endfor %}
-            <h6 class="mt-4">Суббота</h6>
-            {% for k, e in (teacher.free["sat"]).items() %}
-            {% if e %}
-            <a href="{{url_for('booking', teacher_id=teacher.id, day='sat', time=k.split(':')[0]|int)}}" class="btn btn-outline-success  mr-2">{{ k }} свободно</a>
-            {% endif %}
-            {% endfor %}
-            <h6 class="mt-4">Воскресенье</h6>
-            {% for k, e in (teacher.free["sun"]).items() %}
-            {% if e %}
-            <a href="{{url_for('booking', teacher_id=teacher.id, day='sun', time=k.split(':')[0]|int)}}" class="btn btn-outline-success  mr-2">{{ k }} свободно</a>
-            {% endif %}
-            {% endfor %}
-          </section>
+    <div class="card my-4 mx-auto">
+        <div class="card-body m-2 m-md-4">
+            <article class="row">
+                <div class="col-5"><img src="{{ teacher.picture }}" class="img-fluid" alt=""></div>
+                <div class="col-7">
+                    <section class="teacher=info">
+                        <h1 class="h2">{{ teacher.name }}</h1>
+                        <p>
+                            {% for e in teacher.goals %}
+                                <span class="badge badge-secondary mr-2">{{ goals_emoji[e]+" "+goals[e]}}</span>
+                            {% endfor %}
+                        </p>
+                        <p>
+                            <b>Рейтинг: {{ teacher.rating }} Ставка: {{ teacher.price }} / час</b>
+                        </p>
+                        <p>{{ teacher.about }}</p>
+                    </section>
+                </div>
+                <div class="container">
+                    <section class="available">
+                        <h4 class="mb-4 mt-5">Записаться на пробный урок</h4>
+                        {% for day_key,day_value in days.items() %}
+                            <h6 class="mt-4">{{day_value.capitalize()}}</h6>
+                            {% if True in (teacher.free[day_key]).values() %}
+                                {% for k, e in (teacher.free[day_key]).items() %}
+                                    {% if e %}
+                                        <a href="{{url_for('booking', teacher_id=teacher.id, day=day_key, time=k.split(':')[0]|int)}}" class="btn btn-outline-success  mr-2">{{ k }} свободно</a>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <p>Нет свободных уроков</p>
+                            {% endif %}
+                        {% endfor %}
+                    </section>
+                </div>
+            </article>
         </div>
-      </article>
     </div>
-  </div>
 {% endblock %}

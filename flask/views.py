@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for
 import json
-import pprint
+import random
 from app import app
 from forms import *
 
@@ -10,35 +10,63 @@ with open("data.json") as f:
 
 @app.route("/")
 def index():
-	new_data = {"goals" : data["goals"], "teachers" : ''}
-	return render_template("index.html")
+	random.shuffle(data["teachers"])
+	new_data = {"goals" : data["goals"], "teachers" : data["teachers"][:6], "goals_emoji" : data["goals_emoji"]}
+	return render_template("index.html", **new_data)
 
 @app.route("/goals/<goal>/")
-def goals(goal):
-	return render_template("goal.html")
+def goal(goal):
+	new_data = {
+		"teachers" : [],
+		"goal" : data["goals"].get(goal).lower(),
+		"goal_emoji" : data["goals_emoji"][goal]
+	}
+	for e in data["teachers"]:
+		if goal in e["goals"]:
+			new_data["teachers"].append(e)
+	return render_template("goal.html", **new_data)
 
 @app.route("/profiles/<int:teacher_id>/")
 def profile(teacher_id):
 	for e in data["teachers"]:
 		if e["id"] == teacher_id:
 			teacher = e
-	new_data = {"goals" : data["goals"], "teacher" : teacher}
+			break
+	new_data = {"goals" : data["goals"], "teacher" : teacher, "days" : data["days"], "goals_emoji":data["goals_emoji"]}
 	return render_template("profile.html", **new_data)
 
-@app.route("/request/")
-def req():
-	return render_template("request.html")
+@app.route("/request/", methods=["GET", "POST"])
+def request():
+	form = RequestForm()
+	return render_template("request.html", form=form)
 
-@app.route("/request_done/")
+@app.route("/request_done/", methods=["GET", "POST"])
 def request_done():
-	return render_template("request_done.html")
+	form = RequestForm()
+	if form.validate_on_submit():
+		new_data = {
+			"goal" : form.goal.data,
+			"time" : data["time"].get(form.time.data),
+			"name" : form.name.data,
+			"phone" : form.phone.data
+		}
+		with open("request.json", 'r') as f:
+		    request_data = json.loads(f.read())
+		request_data["request_orders"].append(new_data)
+		with open('request.json', 'w') as f:
+			f.write(json.dumps(request_data))
+		return render_template("request_done.html", **new_data, goals=data["goals"])
+	else:
+		return "errs"
+	
 
 @app.route("/booking/<int:teacher_id>/<day>/<int:time>/", methods=["GET","POST"])
 def booking(teacher_id, day, time):
 	for e in data["teachers"]:
 		if e["id"] == teacher_id:
 			teacher = e
-	new_data = {"goals" : data["goals"], "teacher" : teacher, "day" : day, "time" : str(time)+":00"}
+			break
+	new_data = {"goals" : data["goals"], "teacher" : teacher, "day" : day, "time" : str(time)+":00", "days" : data["days"]}
 	form = BookingForm()
 	return render_template("booking.html", form=form, **new_data)
 
