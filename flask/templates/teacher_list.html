@@ -1,7 +1,7 @@
 {% block teachers %}
   <div class="row">
     <div class="col-12 col-lg-10 offset-lg-1 m-auto">
-      {% for teacher in teachers %}
+      {% for teacher in teachers|sort(reverse=True, attribute="rating") %}
         <div class="card mb-4">
           <div class="card-body">
             <div class="row">
