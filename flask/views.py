@@ -11,7 +11,6 @@ with open("data.json") as f:
 @app.route("/")
 def index():
 	new_data = {"goals" : data["goals"], "teachers" : ''}
-	pprint.pprint(new_data)
 	return render_template("index.html")
 
 @app.route("/goals/<goal>/")
@@ -24,7 +23,6 @@ def profile(teacher_id):
 		if e["id"] == teacher_id:
 			teacher = e
 	new_data = {"goals" : data["goals"], "teacher" : teacher}
-	pprint.pprint(new_data)
 	return render_template("profile.html", **new_data)
 
 @app.route("/request/")
@@ -42,21 +40,35 @@ def booking(teacher_id, day, time):
 			teacher = e
 	new_data = {"goals" : data["goals"], "teacher" : teacher, "day" : day, "time" : str(time)+":00"}
 	form = BookingForm()
+	return render_template("booking.html", form=form, **new_data)
+
+@app.route("/booking_done/", methods=["GET","POST"])
+def booking_done():
+	form = BookingForm()
 	if form.validate_on_submit():
 		name = form.name.data
 		teacher = form.teacher.data
 		phone = form.phone.data
 		weekday = form.weekday.data
 		time = form.time.data
-		return render_template("booking_done.html", name=name, phone=phone, weekday=weekday, time=time)
-	return render_template("booking.html", form=form, **new_data)
-
-@app.route("/booking_done", methods=["GET","POST"])
-def booking_done():
-	new_data = {
-			"name" : request.form["name"],
-			"number" : request.form["number"],
-			"weekday" : request.form["weekday"],
-			"time" : request.form["time"]
+		new_data = {
+			"name" : name,
+			"phone" : phone,
+			"weekday" : data["days"].get(weekday),
+			"time" : time,
+			"teacher" : teacher
 		}
-	return render_template("booking_done.html", **new_data)
+		#print(data["days"].get(request.form["weekday"]))
+		for e in data['teachers']:
+			if e["id"] == teacher:
+				((e['free'])[weekday])[time] = False
+		with open('data.json', 'w') as f:
+			f.write(json.dumps(data))
+		with open("booking.json", 'r') as f:
+		    booking_data = json.loads(f.read())
+		booking_data["booking_orders"].append(new_data)
+		with open('booking.json', 'w') as f:
+			f.write(json.dumps(booking_data))
+		return render_template("booking_done.html", **new_data, )
+	else:
+		return "err"

@@ -324,6 +324,6 @@ teachers = [
     },
 ]
 
-data = {"goals" : goals, "teachers" : teachers}
+data = {"goals" : goals, "teachers" : teachers, "days" : {"mon" : "понедельник", "tue":"вторник", "wed":"среда", "thu":"четверг", "fri":"пятница", "sat":"суббота", "sun":"воскресенье"}}
 with open('data.json', 'w') as f:
     f.write(json.dumps(data))
