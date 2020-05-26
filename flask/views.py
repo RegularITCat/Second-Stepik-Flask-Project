@@ -1,12 +1,22 @@
 import json
 import random
 from flask import render_template
-from app import app
+from app import app, db
 from forms import *
-import pprint
+from models import *
 
 with open("data.json") as f:
     data = json.loads(f.read())
+
+
+@app.route("/db_test/", methods=["GET", "POST"])
+def db_test():
+    form = UserForm()
+    if form.validate_on_submit():
+        db.session.add(User(name=form.name.data))
+        db.session.commit()
+    users = db.session.query(User).all()
+    return render_template("db_test.html", form=form, users=users)
 
 
 @app.route("/")

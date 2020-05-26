@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>title here</title>
+</head>
+<body>
+    <form action="{{url_for('db_test')}}" method="POST">
+    {{ form.csrf_token }}
+    {{ form.name }}
+    <input type="submit" value="ok">
+    </form>
+    <hr>
+    {% for user in users %}
+    {{ user.name }}
+    {% endfor %}
+</body>
+</html>

@@ -21,3 +21,8 @@ class RequestForm(FlaskForm):
         message="Необходимо указать имя. ")])
     phone = IntegerField("Ваш телефон", [validators.InputRequired(
         message="Необходимо указать номер телефона. ")])
+
+
+class UserForm(FlaskForm):
+    name = StringField("name", [validators.InputRequired(
+        message="Необходимо указать имя. ")])

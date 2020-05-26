@@ -8,4 +8,7 @@ COPY --chown=flaskuser requirements.txt /home/flaskuser/requirements.txt
 RUN python -m pip install --user --no-cache-dir --trusted-host pypi.python.org -r /home/flaskuser/requirements.txt
 COPY --chown=flaskuser . /home/flaskuser
 ADD --chown=flaskuser . /home/flaskuser/app
-CMD ["uwsgi", "app.ini"]
+#RUN flask db upgrade
+#CMD ["uwsgi", "app.ini"]
+RUN chmod +x /home/flaskuser/entrypoint.sh
+ENTRYPOINT ["/home/flaskuser/entrypoint.sh"]

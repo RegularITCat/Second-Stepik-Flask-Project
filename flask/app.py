@@ -1,6 +1,11 @@
 from flask import Flask
+from flask_migrate import Migrate
+from models import *
+from config import Config
 
 app = Flask(__name__)
-app.secret_key = 'my-super-secret-phrase-I-dont-tell-this-to-nobody-because-it-is-secure-to-be-silent'
+app.config.from_object(Config)
+db.init_app(app)
+migrate = Migrate(app, db)
 
 from views import *
