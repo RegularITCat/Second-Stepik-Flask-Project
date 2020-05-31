@@ -14,7 +14,7 @@ time_dict = {'time1': "1-2 часа", 'time2': "3-5 часов",
 
 
 #@app.route("/db_test/")
-#def db_test():
+# def db_test():
 #    teacher = db.session.query(Teacher).get_or_404(0)
 #    return render_template("db_test.html", teacher=teacher)
 
@@ -36,15 +36,14 @@ def goal(goal):
     for teacher in teachers_query:
         if goal.id in [e.id for e in teacher.goals]:
             teachers.append(teacher)
-    return render_template("goal.html", teachers=teachers,goal=goal)
-
+    return render_template("goal.html", teachers=teachers, goal=goal)
 
 
 @app.route("/profiles/<int:teacher_id>/")
 def profile(teacher_id):
     teacher = db.session.query(Teacher).get_or_404(teacher_id)
     goals = db.session.query(Goal).all()
-    return render_template("profile.html", teacher=teacher,days=days)
+    return render_template("profile.html", teacher=teacher, days=days)
 
 
 @app.route("/request/", methods=["GET", "POST"])

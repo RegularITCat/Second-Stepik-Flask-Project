@@ -43,7 +43,8 @@ def upgrade():
                                sa.Column('picture', sa.String(),
                                          nullable=False),
                                sa.Column('price', sa.Float(), nullable=False),
-                               sa.Column('free', postgresql.JSONB(), nullable=False),
+                               sa.Column('free', postgresql.JSONB(),
+                                         nullable=False),
                                sa.PrimaryKeyConstraint('id')
                                )
     bookings = op.create_table('bookings',
@@ -97,7 +98,8 @@ def upgrade():
     op.bulk_insert(teachers_goals, teachers_goals_to_insert)
     op.bulk_insert(bookings, [{'id': 0, 'day': 'mon', 'time': '14:00', 'teacher_id': 0, 'name': 'test', 'phone': '11111111111'}, {
                    'id': 1, 'day': 'mon', 'time': '16:00', 'teacher_id': 0, 'name': 'test', 'phone': '11111111112'}])
-    op.bulk_insert(requests, [{'id': 0, 'goal': 'travel', 'time': '14:00', 'name': 'test', 'phone': '11111111113'}])
+    op.bulk_insert(requests, [{'id': 0, 'goal': 'travel',
+                               'time': '14:00', 'name': 'test', 'phone': '11111111113'}])
 
 
 def downgrade():

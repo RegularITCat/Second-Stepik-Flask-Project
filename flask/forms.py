@@ -6,7 +6,7 @@ class BookingForm(FlaskForm):
     name = StringField("Вас зовут", [validators.InputRequired(
         message="Необходимо указать имя. ")])
     phone = StringField("Ваш телефон", [validators.InputRequired(
-        message="Необходимо указать номер телефона. "),validators.Length(min=11, message="Неккоректно указан номер телефона. ")])
+        message="Необходимо указать номер телефона. "), validators.Length(min=11, message="Неккоректно указан номер телефона. ")])
 
 
 class RequestForm(FlaskForm):
@@ -17,7 +17,7 @@ class RequestForm(FlaskForm):
     name = StringField("Вас зовут", [validators.InputRequired(
         message="Необходимо указать имя. ")])
     phone = StringField("Ваш телефон", [validators.InputRequired(
-        message="Необходимо указать номер телефона. "),validators.Length(min=11, message="Неккоректно указан номер телефона. ")])
+        message="Необходимо указать номер телефона. "), validators.Length(min=11, message="Неккоректно указан номер телефона. ")])
 
 
 class UserForm(FlaskForm):

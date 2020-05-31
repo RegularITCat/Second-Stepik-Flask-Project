@@ -41,7 +41,8 @@ class Goal(db.Model):
     key = db.Column(db.String, nullable=False)
     value = db.Column(db.String, nullable=False)
     emoji = db.Column(db.String, nullable=False)
-    teachers = db.relationship('Teacher', secondary=teachers_goals_association, back_populates='goals')
+    teachers = db.relationship(
+        'Teacher', secondary=teachers_goals_association, back_populates='goals')
 
 
 class Teacher(db.Model):
@@ -52,6 +53,7 @@ class Teacher(db.Model):
     rating = db.Column(db.Float, nullable=False)
     picture = db.Column(db.String, nullable=False)
     price = db.Column(db.Float, nullable=False)
-    goals = db.relationship('Goal', secondary=teachers_goals_association, back_populates='teachers')
+    goals = db.relationship(
+        'Goal', secondary=teachers_goals_association, back_populates='teachers')
     free = db.Column(MutableDict.as_mutable(JSONB), nullable=False)
     bookings = db.relationship('Booking', back_populates='teacher')
