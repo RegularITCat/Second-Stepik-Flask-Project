@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
 {% block container %}
-  <h1 class="h1 text-center w-50 mx-auto mt-1 py-5 mb-4"><strong>{{goal_emoji}}<br />Преподаватели <br>  {{goal}}</strong></h1>
+  <h1 class="h1 text-center w-50 mx-auto mt-1 py-5 mb-4"><strong>{{goal.emoji}}<br />Преподаватели <br>  {{goal.value}}</strong></h1>
   {% include "teacher_list.html" %}
 {% endblock %}

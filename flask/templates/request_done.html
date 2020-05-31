@@ -5,16 +5,16 @@
       <div class="card mb-3">
         <div class="card-body text-center pt-5">
           <img src="{{url_for('static', filename='check.png')}}" class="mb-3" width="65" alt="">
-          <h2 class="h3 card-title mt-4 mb-2">Запрос отправлен!</h2>
-          <p>Скоро мы вам перезвоним</p>
+          <h2 class="h3 card-title mt-4 mb-2"> Запрос отправлен! </h2>
+          <p> Скоро мы вам перезвоним </p>
         </div>
         <hr />
         <div class="card-body mx-5">
-          <p><b>Цель занятий:</b> {{goals[goal]}}</p>
-          <p><b>Времени есть:</b> {{time}} в неделю</p>
-          <p><b>Имя:</b> {{name}}</p>
-          <p><b>Телефон:</b> {{phone}}</p>
-          <div class="text-center"><a class="btn btn-success" href="{{url_for('index')}}">Ок</a></div>
+          <p><b>Цель занятий:</b> {{ goal.value }}{{ goal.emoji }} </p>
+          <p><b>Времени есть:</b> {{ time }} в неделю </p>
+          <p><b>Имя:</b> {{ name }} </p>
+          <p><b>Телефон:</b> {{ phone }} </p>
+          <div class="text-center"><a class="btn btn-success" href="{{url_for('index')}}"> Ок </a></div>
         </div>
       </div>
     </div>

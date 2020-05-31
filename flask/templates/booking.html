@@ -2,21 +2,16 @@
 {% block container %}
   <div class="row mt-5">
     <div class="col-10 col-md-6 offset-1 offset-md-3 mb-3">
-      <form action="{{url_for('booking_done')}}" method="POST" class="card mb-3">
+      <form method="POST" class="card mb-3">
         <div class="card-body text-center pt-5">
           <img src="{{ teacher.picture }}" class="mb-3" width="95" alt="{{teacher.name}} picture">
           <h2 class="h5 card-title mt-2 mb-2">{{teacher.name}}</h2>
           <p class="my-1">Запись на пробный урок</p>
-          <p class="my-1">{{days[day].capitalize()+", "+time}}</p>
+          <p class="my-1">{{day+", "+time}}</p>
         </div>
         <hr />
         <div class="card-body mx-3">
           {{ form.csrf_token }}
-          <div class="row">
-            {{form.weekday(type="hidden", class="form-control", value=day)}}
-            {{form.time(type="hidden", class="form-control", value=time)}}
-            {{form.teacher(type="hidden", class="form-control", value=teacher.id)}}
-          </div>
           {{form.name.label(class="mb-1 mt-2")}}
           {{form.name(class="form-control")}}
           <ul>{% for e in form.name.errors %}<li><p class="alert-warning">{{e}}</p></li>{% endfor %}</ul>

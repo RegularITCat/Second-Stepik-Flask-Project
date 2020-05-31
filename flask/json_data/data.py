@@ -1,9 +1,5 @@
 import json
 
-
-# помимо того, что здесь хранятся данные, это также и скрипт для создания
-# data.json
-
 goals = {"travel": "Для путешествий", "study": "Для учебы", "work": "Для работы",
          "relocate": "Для переезда", "program": "Для программирования"}
 
@@ -334,5 +330,6 @@ teachers = [
 
 data = {"goals": goals, "teachers": teachers, "days": {"mon": "понедельник", "tue": "вторник", "wed": "среда", "thu": "четверг", "fri": "пятница", "sat": "суббота",
                                                        "sun": "воскресенье"}, "time": {"time1": "1-2 часа", "time2": "3-5 часов", "time3": "5-7 часов", "time4": "7-10 часов"}, "goals_emoji": goals_emoji}
+
 with open('data.json', 'w') as f:
     f.write(json.dumps(data))

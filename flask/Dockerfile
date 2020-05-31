@@ -1,4 +1,5 @@
 FROM python:3.8.3
+RUN apt-get update && apt-get install -y netcat
 RUN groupadd -g 999 flaskuser && \
     useradd -r --create-home -u 999 -g flaskuser flaskuser
 USER flaskuser

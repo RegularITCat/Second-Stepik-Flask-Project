@@ -4,14 +4,14 @@
     <title>title here</title>
 </head>
 <body>
-    <form action="{{url_for('db_test')}}" method="POST">
-    {{ form.csrf_token }}
-    {{ form.name }}
-    <input type="submit" value="ok">
-    </form>
-    <hr>
-    {% for user in users %}
-    {{ user.name }}
-    {% endfor %}
+    teacher id is {{ teacher.id }}<br><br>
+    goals <br>
+    {% for e in teacher.goals %}
+    {{ e.value }} {{ e.emoji }}<br>
+    {% endfor %}<br>
+    bookings <br>
+    {% for e in teacher.bookings %}
+    {{ e.name }} {{ e.phone }}<br>
+    {% endfor %}<br>
 </body>
 </html>

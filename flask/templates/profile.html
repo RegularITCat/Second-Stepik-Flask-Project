@@ -9,7 +9,7 @@
                         <h1 class="h2">{{ teacher.name }}</h1>
                         <p>
                             {% for e in teacher.goals %}
-                                <span class="badge badge-secondary mr-2">{{ goals_emoji[e]+" "+goals[e]}}</span>
+                                <span class="badge badge-secondary mr-2">{{ e.emoji+" "+e.value}}</span>
                             {% endfor %}
                         </p>
                         <p>
